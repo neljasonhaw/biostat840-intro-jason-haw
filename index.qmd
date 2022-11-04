@@ -9,4 +9,4 @@ I'm Jason, and welcome to my page! I love marrying my two great loves: math and 
 
 ![](https://64.media.tumblr.com/0a9bdeaf32e2491510728aae66d8c1a4/tumblr_ov1d6utVDI1ufwioto1_1280.jpg)
 
-You may learn more about me here:
+You may learn more about me [here](https://neljasonhaw.github.io/biostat840-intro-jason-haw/about.html)
