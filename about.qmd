@@ -1,6 +1,8 @@
 ---
 title: "About"
 format: html
+execute:
+  freeze:auto
 ---
 
 
