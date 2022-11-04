@@ -1,0 +1,11 @@
+---
+title: "About"
+format: html
+---
+
+
+Hi there - I’m Jason Haw, originally from the Philippines, passionate about public health, math, and cooking!
+
+I’m currently a Doctor of Philosophy (PhD) candidate in Epidemiology, concurrently a Master of Health Science (MHS) student in Biostatistics at Johns Hopkins Bloomberg School of Public Heath. I have a Master of Science (MS) degree in Global Health from Georgetown University.
+
+I have been working as a public health researcher and educator since 2014. My research interests and professional experience include social epidemiology, health systems and policy research, and global health. You may view my full professional profile here: [ph.linkedin.com/in/neljasonhaw](https://ph.linkedin.com/in/neljasonhaw). I tweet a lot more than I blog here - [@jasonhaw](twitter.com/jasonhaw_).
