@@ -1,0 +1,289 @@
+---
+title: "Example analysis"
+bibliography: references.bib
+---
+
+
+# Background
+
+## Research Question
+
+What is the level of agreement of the two definitions of pre-term birth, i.e. weight at birth \< 2,500 grams and weeks of gestation at birth \<37 weeks?
+
+## Intended Audience
+
+Researchers who may be deciding to choose only one measure over the other to measure preterm birth when there are not enough study resources to do both
+
+Weeks of gestation is much easier to measure as no other equipment is required unlike birth weight, but may be prone to recall bias if no medical records are available to check. Measuring birth weight is more objective as a scale can be used, but this scale may require more resources, such as procuring the scales across study sites and training research staff follow a standard protocol.
+
+## Data Description
+
+We used the publicly available data set from Micalowicz *et al* (2006) published in the *New England Journal of Medicine* [@michalowicz2006], which was a multi-center randomized trial that examined whether timing of periodontal disease treatment (treatment: prior to 21 weeks gestation, control: after delivery) affects the likelihood of pre-term birth, defined as less than 37 weeks gestational age.
+
+This is a longitudinal data set of 823 women who were 13-16 weeks gestational age at randomization, followed by five monthly visits. There are 171 variables corresponding to the exposure, outcome, and covariates collected throughout the entire study period.
+
+The data set is currently set up in wide format, meaning each row represents one study participant, and the covariates and outcome data collected at follow-up visits are set up as separate columns. Full details on the data set, as well as the complete data dictionary are available [here](https://www.causeweb.org/tshs/obstetrics-and-periodontal-therapy/).
+
+The data set is available on the Comprehensive R Archive Network (CRAN) as part of the `medicaldata` package, stored as the `opt` data frame once the package is loaded in library. The variables of interest are:
+
+-   `PID`: Patient unique identifier (ID)
+-   `GA.at.outcome`: Gestational age in days
+-   `Birthweight`: Birth weight in grams
+-   `Birth.outcome`: Outcome of pregnancy with four levels
+    -   Elective abortion
+    -   Live birth
+    -   Lost of FU (follow-up)
+    -   Non-live birth (i.e., stillbirth or spontaneous abortion)
+
+:::{.callout-warning}
+The factor values have lagging spaces in the end, so we need to add an additional data processing step using the `str_trim` function from the `stringr` package (part of `tidyverse`) and replace the affected columns using `mutate`.
+:::
+
+## Analysis
+
+We examined a simple relationship between two continuous variables: gestational age at the end of pregnancy (in days) and birth weight at time of delivery (in grams). We expect that generally, there is a positive association between gestational age and birth weight as these are two related measures for pre-term birth [@oken2003]. 
+
+Pre-term births are sometimes defined by gestational age (a typical cutoff is 37 weeks), or by weight (a typical cutoff is 2500 grams). 
+
+
+:::{.column-margin}
+The positive percent agreement is:
+
+
+$$\frac{A}{A+B+C}$$
+
+The Kappa statistic is:
+
+
+$$\frac{P(\mathrm{observed}) - P(\mathrm{expected})}{1 - P(\mathrm{expected})}$$
+
+
+where $P(\mathrm{observed}) = \frac{A+D}{A+B+C+D}$, $P(\mathrm{expected}) = \frac{(A+C)(A+B) + (B+D)(C+D)}{(A+B+C+D)^2}$
+:::
+
+Given the following 2 x 2 table:
+
+
+```{r}
+table <- data.frame(c("A", "B"), c("C", "D"))
+rownames(table) <- c("< 2,500 g", ">= 2,500 g")
+colnames(table) <- c("< 37 weeks", ">= 37 weeks")
+
+knitr::kable(table, type = "html") |>
+  kableExtra::add_header_above(c("Birthweight", "Gestational age" = 2))
+```
+
+
+We want to examine, visually, the level of agreement between these two definitions. We also want to calculate some agreement statistics, such as positive percent agreement and kappa statistic [@xia2020]. The formula for both statistics are found on the side.
+
+Interpreting the kappa statistic, we use the following guide:
+
+![](https://www.researchgate.net/publication/283871290/figure/tbl2/AS:667815476461571@1536231025215/Kappa-statistic-classification.png)
+
+
+
+# Data Preparation
+
+We restricted the data to women whose pregnancies resulted to live births and were observed within the study period. The final sample size is 793 women.
+
+We also created two new binary variables: `premature` for gestational age < 37 and `lbw` for birthweight < 2,500 g. We also created a new variable called `discord` that indicates whether observations are concordant or discordant based on the two definitions in aid of visualizing them later on our figures.
+
+
+```{r loadsampledata}
+#| warning: false
+#| message: false
+
+library(medicaldata)
+# The data set is stored in opt, then we call it into the environment
+opt <- opt
+
+library(tidyverse)
+# Select the variables needed for the analysis
+  # PID = patient ID
+  # GA.at.outcome = gestational age in days
+  # Birthweight = birth weight in g
+# Restrict data to live births only (Birth.outcome == "Live birth")
+# But clean factor values first using str_trim and apply changes using mutate
+# Then create premature, lbw, and concordant variables
+data <- opt |> mutate(across(where(is.factor), str_trim)) |> 
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, GA.at.outcome, Birthweight) |>
+  mutate(premature = ifelse(GA.at.outcome < 37*7, 1, 0),
+         lbw = ifelse(Birthweight < 2500, 1, 0),
+         discord = ifelse(premature == lbw, 0, 1)) |>
+  mutate(premature = factor(premature, levels = c(0, 1), 
+                            labels = c("Gestational age >= 37 weeks", 
+                            "Gestational age < 37 weeks")),
+         lbw = factor(lbw, levels = c(0,1),
+                      labels = c("Birthweight >= 2,500 g", "Birthweight < 2,500 g")),
+         discord = factor(discord, levels = c(0,1),
+                          labels = c("Concordant", "Discordant")))
+head(data)
+```
+
+
+We also define a custom theme for the figures:
+
+
+```{r theme}
+custom_theme <- theme(
+  panel.background = element_blank(),
+  axis.ticks = element_blank(),
+  axis.text = element_text(size = 12),
+  axis.title = element_text(size = 12, face = "bold"),
+  axis.line = element_line(linewidth = 0.5),
+  plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+  plot.subtitle = element_text(size = 14, face = "bold", hjust = 0.5),
+  strip.text.x = element_text(size = 12, face = "bold")
+)
+```
+
+
+# Results
+
+## Exploratory Data Analysis
+
+First, we show a histogram of the values of gestational age (`GA.at.outcome`) by low birth weight (`lbw`) status, as shown in @fig-hist1:
+
+
+```{r hist1}
+#| warning: false
+#| message: false
+#| label: fig-hist1
+#| fig-cap: "Histogram of gestational age (in weeks) by low birth weight status"
+#| cap-location: margin
+
+ggplot(data = data, aes(x = GA.at.outcome)) +
+  geom_histogram() +
+  scale_x_continuous(limits = c(147, 315), 
+                     breaks = seq(147, 315, 28),
+                     labels = seq(147, 315, 28)/7) +
+  geom_vline(xintercept = 37*7, linetype = "dashed", color = "gray") +
+  facet_grid(cols = vars(lbw)) +
+  labs(x = "Gestational age at birth (in weeks)",
+       title = "Histogram of gestational age (in weeks)",
+       subtitle = "stratified by low birth weight status",
+       y = "Number of births",
+       caption = "Dotted vertical line indicates cutoff for premature birth (37 weeks)") +
+  custom_theme
+```
+
+
+Similarly, we show a histogram of the values of birth weight (`Birthweight`) by premature (`premature`) status, as shown in @fig-hist2:
+
+
+```{r hist2}
+#| warning: false
+#| message: false
+#| label: fig-hist2
+#| fig-cap: "Histogram of birth weight (in grams) by premature status"
+#| cap-location: margin
+
+ggplot(data = data, aes(x = Birthweight)) +
+  geom_histogram() +
+  scale_y_continuous(breaks = seq(0, 5000, 500),
+                     labels = function(x) format(x, big.mark = ",")) +
+  geom_vline(xintercept = 2500, linetype = "dashed", color = "gray") +
+  facet_grid(cols = vars(premature)) +
+  labs(x = "Birth weight (in grams)",
+       title = "Histogram of birth weight (in grams)",
+       subtitle = "stratified by premature status",
+       y = "Number of births",
+       caption = "Dotted vertical line indicates cutoff for birth weight (2,500 weeks)") +
+  custom_theme
+```
+
+
+We then bring both variables together in a scatterplot as shown in @fig-scatter:
+
+
+```{r scatter}
+#| warning: false
+#| message: false
+#| label: fig-scatter
+#| fig-cap: "Scatterplot of gestational age (in weeks) and birth weight (in grams) colored by concordance of definitions of pre-term birth"
+#| cap-location: margin
+
+ggplot(data = data, aes(x = GA.at.outcome, y = Birthweight)) +
+  geom_jitter(aes(color = discord), size = 1) + 
+  scale_x_continuous(limits = c(147, 315), 
+                     breaks = seq(147, 315, 28),
+                     labels = seq(147, 315, 28)/7) +
+  scale_y_continuous(breaks = seq(0, 5000, 500),
+                     labels = function(x) format(x, big.mark = ",")) +
+  scale_color_manual(breaks = c("Concordant", "Discordant"),
+                     values = c("darkgray", "#920045")) +
+  labs(x = "Gestational age at birth (in weeks)",
+       y = "Birth weight at birth (in grams)",
+       title = "Scatterplot of gestational age (in weeks) and birth weight (in grams)",
+       subtitle = "colored by concordance of definitions of pre-term birth") +
+  geom_hline(yintercept = 2500, linetype = "dashed", size = 0.75) +
+  geom_vline(xintercept = 37*7, linetype = "dashed", size = 0.75) + 
+  annotate("text", x = 27*7, y = 3000, hjust = 0, color = "#920045",
+           label = "Pre-term according to \n gestational age only") +
+  annotate("text", x = 40*7, y = 1500, hjust = 0, color = "#920045",
+           label = "Pre-term according to \n birth weight only") +
+  custom_theme +
+  # Add the legend position and title font settings
+  theme(legend.position = c(0.1, 0.9),
+        legend.title = element_blank(),
+        legend.key = element_blank(),
+        legend.text = element_text(size = 11),
+        plot.title = element_text(size = 14, face = "bold", hjust = 0.5))
+```
+
+
+## Agreement Statistics
+
+We summarize the 2x2 table as follows:
+
+
+```{r twobytwo}
+#| warning: false
+#| message: false
+
+table <- data |> group_by(premature, lbw) |> tally() |> spread(premature, n) 
+table |>
+  knitr::kable(type = "html", col.names = c("", "<37 weeks", ">= 37 weeks")) |>
+  kableExtra::add_header_above(c("", "Gestational age" = 2))
+```
+
+
+Therefore, the positive percent agreement is:
+
+The positive percent agreement is:
+
+
+$$\frac{A}{A+B+C} = \frac{693}{693+18+32} = 0.9327%$$
+
+
+Calculating the Kappa Statistic:
+
+
+$$P(\mathrm{observed}) = \frac{A+D}{A+B+C+D} = \frac{693 + 50}{693 + 18 + 32 + 50} = 0.9369$$
+
+$$P(\mathrm{expected}) = \frac{(A+C)(A+B) + (B+D)(C+D)}{(A+B+C+D)^2} = \frac{(693 + 32)(693 + 18) + (18 + 50)(32 + 50)}{(693 + 18 + 32 + 50)^2} = 0.8286$$
+
+$$\kappa = \frac{P(\mathrm{observed}) - P(\mathrm{expected})}{1 - P(\mathrm{expected})} = \frac{0.9369 - 0.8286}{1 - 0.8286} = 0.632$$
+
+
+# Summary
+
+:::{.callout-note}
+**Key message**: There is a fairly high level of agreement between birth weight and gestational age in defining pre-term birth. Either measure to define pre-term birth should be fine.
+:::
+
+Using baseline data from a clinical trial of 793 women on periodontal disease and preterm birth, this analysis looked at the agreement between two measures of preterm birth: birth weight less than 2,500 g and gestational age at 37 weeks. Exploratory data analysis was done using histograms of the continuous measure of one definition stratified by the binary definition of the other, as well as a scatterplot of both continuous measures. Percent positive agreement and Kappa statistics were used to quantify the agreement. Results show a 93.7% percent positive agreement and kappa statistic of 0.63, indicating a fairly high level of agreement. Therefore, either measure to define pre-term birth may be used in future related research studies.
+
+
+# List of functions used
+
+* `dplyr`: `filter()`, `mutate()`, `select()`, `group_by()`, `tally()`
+* `tidyr`: `spread()`
+* `ggplot2`: `geom_histogram()`, `geom_vline()`, `geom_jitter`, `geom_hline`
+
+## References
+
+::: {#refs}
+:::
+

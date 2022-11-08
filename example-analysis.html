@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.651">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Example analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="example-analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="example-analysis_files/libs/quarto-html/quarto.js"></script>
+<script src="example-analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="example-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="example-analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="example-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="example-analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="example-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="example-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="example-analysis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+<script src="example-analysis_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="example-analysis_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Example analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="background" class="level1 page-columns page-full">
+<h1>Background</h1>
+<section id="research-question" class="level2">
+<h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
+<p>What is the level of agreement of the two definitions of pre-term birth, i.e.&nbsp;weight at birth &lt; 2,500 grams and weeks of gestation at birth &lt;37 weeks?</p>
+</section>
+<section id="intended-audience" class="level2">
+<h2 class="anchored" data-anchor-id="intended-audience">Intended Audience</h2>
+<p>Researchers who may be deciding to choose only one measure over the other to measure preterm birth when there are not enough study resources to do both</p>
+<p>Weeks of gestation is much easier to measure as no other equipment is required unlike birth weight, but may be prone to recall bias if no medical records are available to check. Measuring birth weight is more objective as a scale can be used, but this scale may require more resources, such as procuring the scales across study sites and training research staff follow a standard protocol.</p>
+</section>
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<p>We used the publicly available data set from Micalowicz <em>et al</em> (2006) published in the <em>New England Journal of Medicine</em> <span class="citation" data-cites="michalowicz2006">(<a href="#ref-michalowicz2006" role="doc-biblioref">Michalowicz et al. 2006</a>)</span>, which was a multi-center randomized trial that examined whether timing of periodontal disease treatment (treatment: prior to 21 weeks gestation, control: after delivery) affects the likelihood of pre-term birth, defined as less than 37 weeks gestational age.</p>
+<p>This is a longitudinal data set of 823 women who were 13-16 weeks gestational age at randomization, followed by five monthly visits. There are 171 variables corresponding to the exposure, outcome, and covariates collected throughout the entire study period.</p>
+<p>The data set is currently set up in wide format, meaning each row represents one study participant, and the covariates and outcome data collected at follow-up visits are set up as separate columns. Full details on the data set, as well as the complete data dictionary are available <a href="https://www.causeweb.org/tshs/obstetrics-and-periodontal-therapy/">here</a>.</p>
+<p>The data set is available on the Comprehensive R Archive Network (CRAN) as part of the <code>medicaldata</code> package, stored as the <code>opt</code> data frame once the package is loaded in library. The variables of interest are:</p>
+<ul>
+<li><code>PID</code>: Patient unique identifier (ID)</li>
+<li><code>GA.at.outcome</code>: Gestational age in days</li>
+<li><code>Birthweight</code>: Birth weight in grams</li>
+<li><code>Birth.outcome</code>: Outcome of pregnancy with four levels
+<ul>
+<li>Elective abortion</li>
+<li>Live birth</li>
+<li>Lost of FU (follow-up)</li>
+<li>Non-live birth (i.e., stillbirth or spontaneous abortion)</li>
+</ul></li>
+</ul>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The factor values have lagging spaces in the end, so we need to add an additional data processing step using the <code>str_trim</code> function from the <code>stringr</code> package (part of <code>tidyverse</code>) and replace the affected columns using <code>mutate</code>.</p>
+</div>
+</div>
+</section>
+<section id="analysis" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<p>We examined a simple relationship between two continuous variables: gestational age at the end of pregnancy (in days) and birth weight at time of delivery (in grams). We expect that generally, there is a positive association between gestational age and birth weight as these are two related measures for pre-term birth <span class="citation" data-cites="oken2003">(<a href="#ref-oken2003" role="doc-biblioref">Oken et al. 2003</a>)</span>.</p>
+<p>Pre-term births are sometimes defined by gestational age (a typical cutoff is 37 weeks), or by weight (a typical cutoff is 2500 grams).</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>The positive percent agreement is:</p>
+<p><span class="math display">\[\frac{A}{A+B+C}\]</span></p>
+<p>The Kappa statistic is:</p>
+<p><span class="math display">\[\frac{P(\mathrm{observed}) - P(\mathrm{expected})}{1 - P(\mathrm{expected})}\]</span></p>
+<p>where <span class="math inline">\(P(\mathrm{observed}) = \frac{A+D}{A+B+C+D}\)</span>, <span class="math inline">\(P(\mathrm{expected}) = \frac{(A+C)(A+B) + (B+D)(C+D)}{(A+B+C+D)^2}\)</span></p>
+</div></div><p>Given the following 2 x 2 table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"D"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"&lt; 2,500 g"</span>, <span class="st">"&gt;= 2,500 g"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"&lt; 37 weeks"</span>, <span class="st">"&gt;= 37 weeks"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table, <span class="at">type =</span> <span class="st">"html"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"Birthweight"</span>, <span class="st">"Gestational age"</span> <span class="ot">=</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table>
+ <thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Birthweight</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Gestational age</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> &lt; 37 weeks </th>
+   <th style="text-align:left;"> &gt;= 37 weeks </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> &lt; 2,500 g </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> C </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> &gt;= 2,500 g </td>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:left;"> D </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>We want to examine, visually, the level of agreement between these two definitions. We also want to calculate some agreement statistics, such as positive percent agreement and kappa statistic <span class="citation" data-cites="xia2020">(<a href="#ref-xia2020" role="doc-biblioref">Xia 2020</a>)</span>. The formula for both statistics are found on the side.</p>
+<p>Interpreting the kappa statistic, we use the following guide:</p>
+<p><img src="https://www.researchgate.net/publication/283871290/figure/tbl2/AS:667815476461571@1536231025215/Kappa-statistic-classification.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="data-preparation" class="level1">
+<h1>Data Preparation</h1>
+<p>We restricted the data to women whose pregnancies resulted to live births and were observed within the study period. The final sample size is 793 women.</p>
+<p>We also created two new binary variables: <code>premature</code> for gestational age &lt; 37 and <code>lbw</code> for birthweight &lt; 2,500 g. We also created a new variable called <code>discord</code> that indicates whether observations are concordant or discordant based on the two definitions in aid of visualizing them later on our figures.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The data set is stored in opt, then we call it into the environment</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>opt <span class="ot">&lt;-</span> opt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the variables needed for the analysis</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># PID = patient ID</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># GA.at.outcome = gestational age in days</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Birthweight = birth weight in g</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Restrict data to live births only (Birth.outcome == "Live birth")</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># But clean factor values first using str_trim and apply changes using mutate</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Then create premature, lbw, and concordant variables</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> opt <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.factor), str_trim)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Birth.outcome <span class="sc">==</span> <span class="st">"Live birth"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PID, GA.at.outcome, Birthweight) <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">premature =</span> <span class="fu">ifelse</span>(GA.at.outcome <span class="sc">&lt;</span> <span class="dv">37</span><span class="sc">*</span><span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">lbw =</span> <span class="fu">ifelse</span>(Birthweight <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">discord =</span> <span class="fu">ifelse</span>(premature <span class="sc">==</span> lbw, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">premature =</span> <span class="fu">factor</span>(premature, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Gestational age &gt;= 37 weeks"</span>, </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Gestational age &lt; 37 weeks"</span>)),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">lbw =</span> <span class="fu">factor</span>(lbw, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Birthweight &gt;= 2,500 g"</span>, <span class="st">"Birthweight &lt; 2,500 g"</span>)),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">discord =</span> <span class="fu">factor</span>(discord, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Concordant"</span>, <span class="st">"Discordant"</span>)))</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     PID GA.at.outcome Birthweight                   premature
+1 100034           265        3490 Gestational age &gt;= 37 weeks
+2 100042           253        2350  Gestational age &lt; 37 weeks
+3 100067           266        2525 Gestational age &gt;= 37 weeks
+4 100083           271        3650 Gestational age &gt;= 37 weeks
+5 100091           280        3865 Gestational age &gt;= 37 weeks
+6 100109           275        3120 Gestational age &gt;= 37 weeks
+                     lbw    discord
+1 Birthweight &gt;= 2,500 g Concordant
+2  Birthweight &lt; 2,500 g Concordant
+3 Birthweight &gt;= 2,500 g Concordant
+4 Birthweight &gt;= 2,500 g Concordant
+5 Birthweight &gt;= 2,500 g Concordant
+6 Birthweight &gt;= 2,500 g Concordant</code></pre>
+</div>
+</div>
+<p>We also define a custom theme for the figures:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>custom_theme <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="results" class="level1 page-columns page-full">
+<h1>Results</h1>
+<section id="exploratory-data-analysis" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
+<p>First, we show a histogram of the values of gestational age (<code>GA.at.outcome</code>) by low birth weight (<code>lbw</code>) status, as shown in <a href="#fig-hist1">Figure&nbsp;1</a>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> GA.at.outcome)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">147</span>, <span class="dv">315</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">147</span>, <span class="dv">315</span>, <span class="dv">28</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">147</span>, <span class="dv">315</span>, <span class="dv">28</span>)<span class="sc">/</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">37</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(lbw)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Gestational age at birth (in weeks)"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Histogram of gestational age (in weeks)"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"stratified by low birth weight status"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of births"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Dotted vertical line indicates cutoff for premature birth (37 weeks)"</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  custom_theme</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div id="fig-hist1" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="example-analysis_files/figure-html/fig-hist1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption margin-caption">Figure 1: Histogram of gestational age (in weeks) by low birth weight status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Similarly, we show a histogram of the values of birth weight (<code>Birthweight</code>) by premature (<code>premature</code>) status, as shown in <a href="#fig-hist2">Figure&nbsp;2</a>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> Birthweight)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5000</span>, <span class="dv">500</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">big.mark =</span> <span class="st">","</span>)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2500</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(premature)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Birth weight (in grams)"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Histogram of birth weight (in grams)"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"stratified by premature status"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of births"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Dotted vertical line indicates cutoff for birth weight (2,500 weeks)"</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  custom_theme</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div id="fig-hist2" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="example-analysis_files/figure-html/fig-hist2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption margin-caption">Figure 2: Histogram of birth weight (in grams) by premature status</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We then bring both variables together in a scatterplot as shown in <a href="#fig-scatter">Figure&nbsp;3</a>:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> GA.at.outcome, <span class="at">y =</span> Birthweight)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> discord), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">147</span>, <span class="dv">315</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">147</span>, <span class="dv">315</span>, <span class="dv">28</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">147</span>, <span class="dv">315</span>, <span class="dv">28</span>)<span class="sc">/</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">5000</span>, <span class="dv">500</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">big.mark =</span> <span class="st">","</span>)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"Concordant"</span>, <span class="st">"Discordant"</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkgray"</span>, <span class="st">"#920045"</span>)) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Gestational age at birth (in weeks)"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Birth weight at birth (in grams)"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Scatterplot of gestational age (in weeks) and birth weight (in grams)"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"colored by concordance of definitions of pre-term birth"</span>) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">2500</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">37</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span> </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">27</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">y =</span> <span class="dv">3000</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"#920045"</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Pre-term according to </span><span class="sc">\n</span><span class="st"> gestational age only"</span>) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">40</span><span class="sc">*</span><span class="dv">7</span>, <span class="at">y =</span> <span class="dv">1500</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"#920045"</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Pre-term according to </span><span class="sc">\n</span><span class="st"> birth weight only"</span>) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  custom_theme <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the legend position and title font settings</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div id="fig-scatter" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="example-analysis_files/figure-html/fig-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption margin-caption">Figure 3: Scatterplot of gestational age (in weeks) and birth weight (in grams) colored by concordance of definitions of pre-term birth</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="agreement-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="agreement-statistics">Agreement Statistics</h2>
+<p>We summarize the 2x2 table as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">group_by</span>(premature, lbw) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span> <span class="fu">spread</span>(premature, n) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>table <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">type =</span> <span class="st">"html"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"&lt;37 weeks"</span>, <span class="st">"&gt;= 37 weeks"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">""</span>, <span class="st">"Gestational age"</span> <span class="ot">=</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Gestational age</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:right;"> &lt;37 weeks </th>
+   <th style="text-align:right;"> &gt;= 37 weeks </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Birthweight &gt;= 2,500 g </td>
+   <td style="text-align:right;"> 693 </td>
+   <td style="text-align:right;"> 32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Birthweight &lt; 2,500 g </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 50 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Therefore, the positive percent agreement is:</p>
+<p>The positive percent agreement is:</p>
+<p><span class="math display">\[\frac{A}{A+B+C} = \frac{693}{693+18+32} = 0.9327%\]</span></p>
+<p>Calculating the Kappa Statistic:</p>
+<p><span class="math display">\[P(\mathrm{observed}) = \frac{A+D}{A+B+C+D} = \frac{693 + 50}{693 + 18 + 32 + 50} = 0.9369\]</span></p>
+<p><span class="math display">\[P(\mathrm{expected}) = \frac{(A+C)(A+B) + (B+D)(C+D)}{(A+B+C+D)^2} = \frac{(693 + 32)(693 + 18) + (18 + 50)(32 + 50)}{(693 + 18 + 32 + 50)^2} = 0.8286\]</span></p>
+<p><span class="math display">\[\kappa = \frac{P(\mathrm{observed}) - P(\mathrm{expected})}{1 - P(\mathrm{expected})} = \frac{0.9369 - 0.8286}{1 - 0.8286} = 0.632\]</span></p>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Key message</strong>: There is a fairly high level of agreement between birth weight and gestational age in defining pre-term birth. Either measure to define pre-term birth should be fine.</p>
+</div>
+</div>
+<p>Using baseline data from a clinical trial of 793 women on periodontal disease and preterm birth, this analysis looked at the agreement between two measures of preterm birth: birth weight less than 2,500 g and gestational age at 37 weeks. Exploratory data analysis was done using histograms of the continuous measure of one definition stratified by the binary definition of the other, as well as a scatterplot of both continuous measures. Percent positive agreement and Kappa statistics were used to quantify the agreement. Results show a 93.7% percent positive agreement and kappa statistic of 0.63, indicating a fairly high level of agreement. Therefore, either measure to define pre-term birth may be used in future related research studies.</p>
+</section>
+<section id="list-of-functions-used" class="level1">
+<h1>List of functions used</h1>
+<ul>
+<li><code>dplyr</code>: <code>filter()</code>, <code>mutate()</code>, <code>select()</code>, <code>group_by()</code>, <code>tally()</code></li>
+<li><code>tidyr</code>: <code>spread()</code></li>
+<li><code>ggplot2</code>: <code>geom_histogram()</code>, <code>geom_vline()</code>, <code>geom_jitter</code>, <code>geom_hline</code></li>
+</ul>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-michalowicz2006" class="csl-entry" role="doc-biblioentry">
+Michalowicz, Bryan S., James S. Hodges, Anthony J. DiAngelis, Virginia R. Lupo, M. John Novak, James E. Ferguson, William Buchanan, et al. 2006. <span>“Treatment of Periodontal Disease and the Risk of Preterm Birth.”</span> <em>New England Journal of Medicine</em> 355 (18): 1885–94. <a href="https://doi.org/10.1056/nejmoa062249">https://doi.org/10.1056/nejmoa062249</a>.
+</div>
+<div id="ref-oken2003" class="csl-entry" role="doc-biblioentry">
+Oken, Emily, Ken P Kleinman, Janet Rich-Edwards, and Matthew W Gillman. 2003. <span>“A Nearly Continuous Measure of Birth Weight for Gestational Age Using a United States National Reference.”</span> <em>BMC Pediatrics</em> 3 (1). <a href="https://doi.org/10.1186/1471-2431-3-6">https://doi.org/10.1186/1471-2431-3-6</a>.
+</div>
+<div id="ref-xia2020" class="csl-entry" role="doc-biblioentry">
+Xia, Yinglin. 2020. <span>“Correlation and Association Analyses in Microbiome Study Integrating Multiomics in Health and Disease.”</span> In, 309–491. Elsevier. <a href="https://doi.org/10.1016/bs.pmbts.2020.04.003">https://doi.org/10.1016/bs.pmbts.2020.04.003</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
