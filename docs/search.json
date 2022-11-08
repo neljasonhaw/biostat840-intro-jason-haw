@@ -7,6 +7,13 @@
     "text": "I’m Jason, and welcome to my page! I love marrying my two great loves: math and public health. In this page, you will see both, as well as a third great love: cooking! Here’s a photo of my famous Filipino adobo dish:"
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I’m currently a Doctor of Philosophy (PhD) candidate in Epidemiology, concurrently a Master of Health Science (MHS) student in Biostatistics at Johns Hopkins Bloomberg School of Public Heath. I have a Master of Science (MS) degree in Global Health from Georgetown University.\nI have been working as a public health researcher and educator since 2014. My research interests and professional experience include social epidemiology, health systems and policy research, and global health. You may view my full professional profile here: ph.linkedin.com/in/neljasonhaw. I tweet a lot more than I blog here - @jasonhaw."
+  },
+  {
     "objectID": "example-analysis.html",
     "href": "example-analysis.html",
     "title": "Example analysis",
@@ -33,12 +40,5 @@
     "title": "Example analysis",
     "section": "References",
     "text": "References\n\n\nMichalowicz, Bryan S., James S. Hodges, Anthony J. DiAngelis, Virginia R. Lupo, M. John Novak, James E. Ferguson, William Buchanan, et al. 2006. “Treatment of Periodontal Disease and the Risk of Preterm Birth.” New England Journal of Medicine 355 (18): 1885–94. https://doi.org/10.1056/nejmoa062249.\n\n\nOken, Emily, Ken P Kleinman, Janet Rich-Edwards, and Matthew W Gillman. 2003. “A Nearly Continuous Measure of Birth Weight for Gestational Age Using a United States National Reference.” BMC Pediatrics 3 (1). https://doi.org/10.1186/1471-2431-3-6.\n\n\nXia, Yinglin. 2020. “Correlation and Association Analyses in Microbiome Study Integrating Multiomics in Health and Disease.” In, 309–491. Elsevier. https://doi.org/10.1016/bs.pmbts.2020.04.003."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I’m currently a Doctor of Philosophy (PhD) candidate in Epidemiology, concurrently a Master of Health Science (MHS) student in Biostatistics at Johns Hopkins Bloomberg School of Public Heath. I have a Master of Science (MS) degree in Global Health from Georgetown University.\nI have been working as a public health researcher and educator since 2014. My research interests and professional experience include social epidemiology, health systems and policy research, and global health. You may view my full professional profile here: ph.linkedin.com/in/neljasonhaw. I tweet a lot more than I blog here - @jasonhaw."
   }
 ]

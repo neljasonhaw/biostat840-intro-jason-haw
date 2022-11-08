@@ -1,6 +1,7 @@
 ---
 title: "Example analysis"
 bibliography: references.bib
+output: html
 ---
 
 # Background
